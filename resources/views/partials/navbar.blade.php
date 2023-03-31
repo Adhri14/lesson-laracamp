@@ -21,6 +21,25 @@
                         <a class="nav-link" href="#">Business</a>
                     </li>
                 </ul>
+                @auth
+                <div class="d-flex user-logged nav-item dropdown no-arrow">
+                    <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Halo, {{ Auth::user()->name }}!
+                        <img src="{{ Auth::user()->avatar }}" class="user-photo" alt="">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li>
+                                <a href="#" class="dropdown-item">My Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('login-form').submit()">Sign Out</a>
+                                <form id="login-form" action="{{ route('logout') }}" style="display: none;" method="post">
+                                    <input type="hidden" value="{{ csrf_token() }}" name="_token">
+                                </form>
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+                @else
                 <div class="d-flex">
                     <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
                         Sign In
@@ -29,6 +48,7 @@
                         Sign Up
                     </a>
                 </div>
+                @endauth
             </div>
         </div>
     </nav>
