@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
+                                <a href="{{ route('success-checkout') }}" type="submit" class="w-100 btn btn-primary">Pay Now</a>
                                 <p class="text-center subheader mt-4">
                                     <img src="/assets/images/ic_secure.svg" alt=""> Your payment is secure and encrypted.
                                 </p>
