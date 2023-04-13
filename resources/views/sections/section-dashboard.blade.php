@@ -23,7 +23,7 @@
                                     <strong>{{ $item->camp->title }}</strong>
                                 </p>
                                 <p>
-                                    {{ $item->expired }}
+                                    {{ $item->created_at->format('M d, Y') }}
                                 </p>
                             </td>
                             <td>
@@ -43,7 +43,7 @@
                             </td>
                         </tr>
                     @empty
-                        <tr>
+                        <tr class="align-middle">
                             <td colspan="5">No Data</td>
                         </tr>
                     @endforelse
