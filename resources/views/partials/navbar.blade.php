@@ -26,12 +26,12 @@
                     <a href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Halo, {{ Auth::user()->name }}!
                         <img src="{{ Auth::user()->avatar }}" class="user-photo" alt="">
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left: auto">
                             <li>
-                                <a href="#" class="dropdown-item">My Dashboard</a>
+                                <a href="{{ route('dashboard') }}" class="dropdown-item">My Dashboard</a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('login-form').submit()">Sign Out</a>
+                                <a href="#" class="dropdown-item" id="btn-logout">Sign Out</a>
                                 <form id="login-form" action="{{ route('logout') }}" style="display: none;" method="post">
                                     <input type="hidden" value="{{ csrf_token() }}" name="_token">
                                 </form>
@@ -52,3 +52,15 @@
             </div>
         </div>
     </nav>
+
+    @auth
+        <script>
+            const buttonLogout = document.getElementById('btn-logout');
+            const formLogout = document.getElementById('login-form');
+
+            buttonLogout.addEventListener('click', function(e) {
+                e.preventDefault();
+                formLogout.submit();
+            })
+        </script>
+    @endauth
