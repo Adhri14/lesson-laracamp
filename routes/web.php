@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     // Checkout
     Route::get('checkout/{camp:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('checkout/{camp}', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('checkout/invoice/{checkout:id}', [CheckoutController::class, 'invoice'])->name('checkout.invoice');
     Route::get('success-checkout', [CheckoutController::class, 'success_checkout'])->name('checkout.success');
 
     // Dashboard

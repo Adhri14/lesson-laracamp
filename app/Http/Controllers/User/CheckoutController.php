@@ -4,12 +4,14 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\Checkout\Store;
+use App\Mail\Checkout\AfterCheckout;
 use App\Models\CampBenefit;
 use App\Models\Camps;
 use App\Models\Checkout;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -43,12 +45,20 @@ class CheckoutController extends Controller
         $user->occupation = $data['occupation'];
         $user->save();
 
-        Checkout::create($data);
+        $checkout = Checkout::create($data);
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
+
         return Redirect::route('checkout.success');
     }
 
     public function success_checkout(): View
     {
         return view("checkout.success");
+    }
+
+    public function invoice(Checkout $checkout)
+    {
+        return $checkout;
+        // return view("checkout.invoice");
     }
 }
