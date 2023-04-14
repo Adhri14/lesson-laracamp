@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\Checkout\Store;
 use App\Models\CampBenefit;
 use App\Models\Camps;
 use App\Models\Checkout;
@@ -17,8 +18,12 @@ class CheckoutController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Camps $camp): View
+    public function create(Camps $camp, Request $request)
     {
+        if ($camp->isRegistered) {
+            $request->session()->flash('error', "You already registered {$camp->title} camp.");
+            return Redirect::route('dashboard');
+        }
         return view('checkout.create', [
             "camp" => $camp
         ]);
@@ -27,7 +32,7 @@ class CheckoutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Camps $camp): RedirectResponse
+    public function store(Store $request, Camps $camp): RedirectResponse
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();

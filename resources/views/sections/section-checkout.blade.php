@@ -31,28 +31,46 @@
                                 <div class="mb-4">
                                     <label for="title" class="form-label">Full Name</label>
                                     <input name="name" type="text" class="form-control" id="title" value="{{ Auth::user()->name }}" @disabled(true)>
+                                    @if ($errors->has('name'))
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="form-label">Email Address</label>
                                     <input name="email" type="email" class="form-control" id="email" value="{{ Auth::user()->email }}" @disabled(true)>
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="occupation" class="form-label">Occupation</label>
                                     <input name="occupation" type="text" class="form-control" id="occupation" value="{{ Auth::user()->occupation }}">
+                                    @if ($errors->has('occupation'))
+                                        <span class="text-danger">{{ $errors->first('occupation') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-4">
                                     <label for="card_number" class="form-label">Card Number</label>
                                     <input name="card_number" type="number" class="form-control" id="card_number">
+                                    @if ($errors->has('card_number'))
+                                        <span class="text-danger">{{ $errors->first('card_number') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-5">
                                     <div class="row">
                                         <div class="col-lg-6 col-12">
                                             <label for="expired" class="form-label">Expired</label>
                                             <input name="expired" type="month" class="form-control" id="expired">
+                                            @if ($errors->has('expired'))
+                                                <span class="text-danger">{{ $errors->first('expired') }}</span>
+                                            @endif
                                         </div>
                                         <div class="col-lg-6 col-12">
                                             <label for="cvc" class="form-label">CVC</label>
-                                            <input name="cvc" type="text" class="form-control" id="cvc">
+                                            <input name="cvc" type="text" class="form-control" id="cvc" maxlength="3">
+                                            @if ($errors->has('cvc'))
+                                                <span class="text-danger">{{ $errors->first('cvc') }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
