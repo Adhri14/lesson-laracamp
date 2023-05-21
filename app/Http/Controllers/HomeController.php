@@ -14,12 +14,14 @@ class HomeController extends Controller
         return view('user.welcome');
     }
 
-    public function dashboard(): View
+    public function dashboard()
     {
-        $data['checkouts'] = Checkout::with('Camp')->whereUserId(Auth::id())->get();
-
-        // return $checkouts;
-
-        return view('user.dashboard', $data);
+        $isAdmin = Auth::user()->is_admin;
+        switch ($isAdmin) {
+            case true:
+                return redirect(route('admin.dashboard'));
+            default:
+                return redirect(route('user.dashboard'));
+        }
     }
 }
